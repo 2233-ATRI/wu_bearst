@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+#include<math.h>
+unsigned int  a=0,num,start=pow(2,16);
+unsigned int  b[16];
+int main()
+{
+    scanf("%u",&a);
+    for(int i=0;i<16;i++){
+        if(1 & a){
+            b[i]=1;
+        }
+        a>>=1;
+    }
+    num+=a;
+    for(int i=0 ;i<16;++i){
+        if(b[i]){
+            num+=start;
+        }
+        start*=2;
+    }
+    printf("%u",num);
+    return 0;
+}
