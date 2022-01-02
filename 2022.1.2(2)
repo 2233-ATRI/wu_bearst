@@ -1,0 +1,22 @@
+#include <stdio.h>
+int main()
+{
+    int M;
+    int i,j,sum;
+    scanf("%d",&M);
+    for(i=1;i<M/2+1;i++){
+        sum=i;
+        j=i;
+        while(1){
+            j++;
+            sum=sum+j;
+            if(sum>M){
+                break;
+            }else if(sum==M){
+                printf("%d %d\n",i,j);
+                break;
+            }
+        }
+    }
+    return 0;
+}
