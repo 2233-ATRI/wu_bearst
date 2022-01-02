@@ -1,0 +1,54 @@
+#include <stdio.h>
+long long int w[50];
+long long int dp[50][50];
+int root[50][50];
+int n;
+void print(int i,int j)
+{
+	if(i>j)
+	return;
+	if(i==j)
+	{
+		printf("%d ",i);
+		return;
+	}
+	int Root=root[i][j];
+	printf("%d ",Root);
+	
+	print(i,Root-1);
+	print(Root+1,j);
+}
+int main()
+{
+	scanf("%d",&n);
+	int i,j,k,l;
+	for(i=1;i<=n;i++)
+	{
+		root[i][i]=i;
+		dp[i][i-1]=1;
+	}
+	for(i=1;i<=n;i++)
+	{
+		scanf("%lld",&w[i]);
+		dp[i][i]=w[i];
+	}
+	for(l=2;l<=n;l++)
+	{
+		for(i=1;i<=n-l+1;i++)
+		{
+			j=i+l-1;
+			root[i][j]=i;
+			for(k=i;k<=j;k++)
+			{
+				if(dp[i][j]<dp[i][k-1]*dp[k+1][j]+w[k])
+				{
+					root[i][j]=k;
+					dp[i][j]=dp[i][k-1]*dp[k+1][j]+w[k];
+				}
+			}
+		}
+	}
+	printf("%lld\n",dp[1][n]);
+	print(1,n);
+	return 0;
+}
