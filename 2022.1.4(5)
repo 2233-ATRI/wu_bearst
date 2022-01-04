@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<math.h>
+double height,s,v,l,k;
+int n;
+int get(double distance)//知道小球与车前端的距离和小球的平抛速度，计算是否能落在车里 
+{
+	double time1,time2;//time1是落到地上的时间，time2是落到总高减车高的地方的时间
+	time1 = sqrt(2.0 * height / 10.0);
+	time2 = sqrt(2.0*(height - k) / 10.0);
+	/*printf("%lf , %lf\n",time1,time2);
+	return 0;*/
+	double d1 = v * time1;
+	double d2 = v * time2;
+	if(d1 < distance - 0.0001)//落地时没有到达着的前端
+		return 0;
+	else if(d2 > distance + l + 0.0001)//再到达车的高度时已经与车错过
+		return 0;
+	else
+		return 1; 
+		
+ } 
+int main()
+{
+
+	scanf("%lf%lf%lf%lf%lf%d",&height,&s,&v,&l,&k,&n);
+	int cnt = 0;
+	for(int i = 0;i < n;i++)
+	{
+		if(get(s - i) == 1)
+			cnt++;
+	}
+	printf("%d",cnt);
+	return 0;
+}
