@@ -1,0 +1,23 @@
+#include<stdlib.h>
+#include<stdio.h>
+int main()
+{
+	int i,j,N,m;
+	int a[26],b[26],dp[30000]={0};
+	scanf("%d %d",&N,&m);
+	for(i=1;i<=m;i++)  
+	{
+		scanf("%d %d",&a[i],&b[i]);
+		for(j=N;j>=a[i];j--)
+		{
+			if(j>=a[i])     
+			{
+				if(dp[j]<=dp[j-a[i]]+a[i]*b[i])  
+				{
+					dp[j]=dp[j-a[i]]+a[i]*b[i]; 
+				}	
+			}
+		}
+	}
+	printf("%d",dp[N]);
+ }
