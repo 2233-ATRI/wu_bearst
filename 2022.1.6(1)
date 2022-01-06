@@ -1,0 +1,22 @@
+#include <stdio.h>
+void az(int n,int r)
+{
+	if(n==0) return ;
+	int m=n%r;
+	if(m<0) m-=r,n+=r;
+	
+	if(m>=10) m='A'+m-10;
+	else m+='0';
+	az(n/r,r);
+	printf("%c",m);
+	return ; 
+}
+int main()
+{
+	int num,R;
+	scanf("%d %d",&num,&R);
+	printf("%d=",num);
+	az(num,R);
+	printf("(base%d)",R);
+	return 0;
+ } 
