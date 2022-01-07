@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <string.h>
+int n, m, top;
+char stack[33], a[33];
+int c2i(char c) {
+    if ('0' <= c && c <= '9')return c - '0';
+    if ('A' <= c && c <= 'F')return c - 'A' + 10;
+}
+int s2i(char* s) {
+    int i, len, ret = 0;
+    char c;
+    len = strlen(s);
+    for (i = 0; i < len; i++)ret *= n, ret += c2i(s[i]);
+    return ret;
+}
+char i2c(int x) {
+    if (0 <= x && x <= 9)return '0' + x;
+    if (10 <= x && x <= 15)return x - 10 + 'A';
+}
+void i2i(int b) {
+    top = 0;
+    while (b)stack[++top] = i2c(b % m), b /= m;
+}
+int main() {
+    scanf("%d", &n);
+    scanf("%s", a);
+    scanf("%d", &m);
+    i2i(s2i(a));
+    while (top)printf("%c", stack[top--]);
+    printf("\n");
+    return 0;
+}
