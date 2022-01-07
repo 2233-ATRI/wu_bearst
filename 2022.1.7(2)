@@ -1,0 +1,12 @@
+#include<stdio.h>
+int main(){
+  int a,b,c;
+  scanf("%d",&c);
+  a=c*5;
+  b=c*3+11;
+  if(a<b){
+    printf("Local");
+  }else{
+    printf("Luogu");
+  }
+}
