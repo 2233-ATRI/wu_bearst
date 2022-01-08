@@ -1,0 +1,7 @@
+int a=0;
+    for(int i=1;i<pricesSize;i++){
+        if(prices[i]>prices[i-1])
+            a=a+prices[i]-prices[i-1];
+    } 
+    return a;
+    //注意的是并不可以使用printf,这里是一个函数
