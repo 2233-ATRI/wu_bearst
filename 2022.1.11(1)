@@ -1,0 +1,18 @@
+    
+    
+    int b;
+    long long int az = 0;
+    int a = x;
+    if(x < 0) {
+       return false; 
+    }
+    while(x) {
+        b = x % 10;
+        x = x / 10;
+        az = b + az * 10;
+    }
+    if(a == az) {
+        return true;
+    } else {
+        return false;
+    }
