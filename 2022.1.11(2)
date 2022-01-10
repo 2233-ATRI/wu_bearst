@@ -1,0 +1,20 @@
+思路：
+和前天的题相似，进行多伦多判断，最后得到一个ture或者flase
+代码：
+
+int singleNumber(int* nums, int numsSize) {
+    int az = 0;
+    for(int i=0; i<numsSize&&az==0; i++){
+        az = 1;
+        for(int j=0; j<numsSize; j++){
+            if(nums[i] == nums[j]&&i!=j){
+                az = 0;
+                break;
+            }
+        }
+    } 
+    if (az == 0)
+        return -1;
+    else
+        return nums[i-1];
+}
