@@ -1,0 +1,96 @@
+#include <stdio.h>//实现字符串缓冲区类 strbuf 简单的初始化，填充，释放，交换，比较，清空等操作。
+#include <stdlib.h>
+#include <string.h>
+struct strbuf {
+  int len;     //当前缓冲区（字符串）长度
+  int alloc;   //当前缓冲区（字符串）容量
+  char *buf;   //缓冲区（字符串）
+};
+void strbuf_init(struct strbuf *sb, size_t alloc);//缓存区初始化
+void strbuf_attach(struct strbuf *sb, void *str, size_t len);//字符串存入缓冲区
+void strbuf_release(struct strbuf *sb);//释放这个缓冲区
+void strbuf_swap(struct strbuf *a, struct strbuf *b);//交换两个缓冲区的内容
+char *strbuf_detach(struct strbuf *sb, size_t *sz);//找出这个缓冲区的内容和大小
+int strbuf_cmp(const struct strbuf *first, const struct strbuf *second);//比较两个缓冲区的大小
+void strbuf_reset(struct strbuf *sb);//清空这个缓冲区
+
+int main()
+{
+    struct strbuf sb;
+    struct strbuf az;
+    int len;
+    strbuf_init(&az,10);
+    strbuf_attach(&az,"xiyou",5);
+    strbuf_init(&sb,10);
+    strbuf_attach(&sb,"linux",5);
+    strbuf_swap(&az,&sb);
+    char*ac=strbuf_detach(&az,&len);
+    printf("ac=%s\n",az.buf);
+    printf("len=%d\n",len);
+    printf("cmp=%d\n",strbuf_cmp(&az,&sb));
+    strbuf_reset(&az);
+    strbuf_reset(&sb);
+    printf("az=%s",az.buf);
+    strbuf_release(&az);
+    strbuf_release(&sb);
+    return 0;
+}
+
+void strbuf_init(struct strbuf*sb,size_t alloc)//缓存区初始化
+{
+    sb->len=0;
+    sb->alloc=alloc;
+    sb->buf=(char*)malloc(sizeof(char)*alloc);
+}
+
+void strbuf_attach(struct strbuf *sb, void *str, size_t len)//将字符串填充到 sb 中，长度为 len, 容量为 alloc。
+{
+    while(sb->len+len>sb->alloc){
+        sb->alloc=2*sb->alloc;
+        sb->buf=(char*)realloc(sb->buf,sizeof(char)*(sb->alloc)*2);
+    }
+    sb->len=len+sb->len;
+    strcat(sb->buf,str);
+}
+
+void strbuf_release(struct strbuf *sb)//释放这个缓冲区
+{
+    free(sb->buf);
+}
+
+void strbuf_swap(struct strbuf *a, struct strbuf *b)//交换两个缓冲区的内容
+{
+    int max=a-> len>b->len ? a->len : b->len;
+    int templ=a->len;
+    a->len=b->len;
+    b->len=templ;
+    if(a->alloc<=max){
+        a->alloc*=2;
+        a->buf=(char*)realloc(a->buf,sizeof(char)*a->alloc);
+    }
+    if(b->alloc<=max)
+    {
+        b->alloc*=2;
+        b->buf=(char*)realloc(b->buf,sizeof(char)*b->alloc);
+    }
+    char*temp=(char*)malloc(sizeof(char)*max);
+    strcpy(temp,a->buf);
+    strcpy(a->buf,b->buf);
+    strcpy(b->buf,temp);
+} 
+
+char *strbuf_detach(struct strbuf *sb, size_t *sz)//找出这个缓冲区的内容和大小
+{
+    *sz=sb->len;
+    return sb->buf;
+}
+
+int strbuf_cmp(const struct strbuf *first, const struct strbuf *second)//比较两个缓冲区的大小
+{
+    return first->alloc-second->alloc;
+}
+
+void strbuf_reset(struct strbuf *sb)//清空这个缓冲区
+{
+    strcpy(sb->buf=0,"");
+}
