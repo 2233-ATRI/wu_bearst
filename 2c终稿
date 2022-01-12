@@ -1,0 +1,29 @@
+void strbuf_rtrim(struct strbuf *sb)//去除 sb 缓冲区左端的所有 空格，tab, '\t'。
+{
+    int a=sb->len-1;
+    for(;sb->buf[a]==' ';a--)
+    {
+    sb->len--;
+    }
+    char*temp=(char*)malloc(sizeof(char)*(a+1));
+    strncpy(temp,sb->buf,a+1);
+    strcpy(sb->buf,temp);
+}
+void strbuf_ltrim(struct strbuf *sb)//去除 sb 缓冲区右端的所有 空格，tab, '\t'。
+{
+  int a=0;
+  while(sb->buf[a]==' '){
+    a++;
+    sb->len--;
+  }
+  char*temp=(char*)malloc(sizeof(char)*sb->len);
+  strncpy(temp,sb->buf+a);
+    strcpy(sb->buf,temp);
+} 
+void strbuf_remove(struct strbuf *sb, size_t pos, size_t len)//	删除 sb 缓冲区从 pos 坐标长度为 len 的内容
+{
+  char*temp=(char*)ralloc(sizeof(char)*(sb->len));
+  strncpy(temp,sb->buf,pos);
+  strcat(temp,sb->buf+pos+len);
+  strcpy(sb->buf,temp);
+}
