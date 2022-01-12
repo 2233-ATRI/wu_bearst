@@ -1,0 +1,53 @@
+void strbuf_grow(struct strbuf *sb, size_t extra)//将 sb 的长度扩大 extra。
+{
+  sb->len=extra+sb->len;
+  sb->buf=(char*)malloc(sizeof(char)*extra); //扩大其中的容量
+}
+
+void strbuf_add(struct strbuf *sb, const void *data, size_t len)//向 sb 追加长度为 len 的数据 data。
+{
+  while(sb->len>data+sb->alloc){
+    sb->alloc=2*sb->alloc;
+    sb->buf=(char *)realloc(sb->buf,sizeof(char)*(sb->alloc)*2);
+
+  }
+  sb->len=len+sb->len;
+  strcat(sb->buf,data);
+}
+void strbuf_addch(struct strbuf *sb, int c)//向 sb 追加一个字符 c。
+{sb->alloc=sb->alloc*2;
+  sb->buf=(char*)realloc(sb->buf,sizeof(char)*(sb->alloc)+4);
+  strcat(sb->buf,c);
+}
+void strbuf_addstr(struct strbuf *sb, const char *s)	//向 sb 追加一个字符串 s。
+{
+  while(sb->len+strlen(s)>sb->alloc){
+        sb->alloc=2*sb->alloc;
+        sb->buf=(char*)realloc(sb->buf,sizeof(char)*(sb->alloc)*2);
+    }
+    strcat(sb->buf,s);
+}
+void strbuf_addbuf(struct strbuf *sb, const struct strbuf *sb2);//向一个 sb 追加另一个 strbuf的数据。
+{
+  sb->len=sb->len+sb2->len;
+  sb->alloc=sb->alloc*2;
+  strcat(sb->buf,sb2->buf);
+}
+
+static inline void strbuf_setlen(struct strbuf *sb, size_t len)//设置 sb 的长度 len。
+{
+  sb->len=sizeof(len);
+}
+static inline size_t strbuf_avail(const struct strbuf *sb)//计算 sb 目前仍可以向后追加的字符串长度。
+{
+  int qw=0;
+  qw=sizeof(sb->alloc)-sizeof(sb->len);
+  printf("%d",qw);
+
+}
+void strbuf_insert(struct strbuf *sb, size_t pos, const void *data, size_t len)//向 sb 内存坐标为 pos 位置插入长度为 len 的数据 data。
+{
+    for(int i=pos;pos<sb->len;i++){
+      
+    }
+}
