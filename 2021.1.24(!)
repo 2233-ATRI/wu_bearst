@@ -1,0 +1,17 @@
+int* plusOne(int* digits, int digitsSize, int* returnSize) {
+    int i;
+    for(i=digitsSize-1; i>=0; i--)
+        if(digits[i]==9)
+            digits[i]=0;
+        else
+        {   digits[i]++;
+            *returnSize=digitsSize;
+            return digits;
+        }
+    *returnSize=digitsSize+1;
+    digits=(int *)realloc(digits,*returnSize*sizeof(int));
+    digits[0]=1; 
+    digits[*returnSize-1]=0;  
+    return digits;
+
+}
