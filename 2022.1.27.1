@@ -1,0 +1,29 @@
+#include<stdio.h>
+int main(){
+	int n,m;
+	int xh,yh;
+	double map[22][22];
+	int i,j;
+ 
+	scanf("%d %d %d %d",&n,&m,&xh,&yh);
+ 
+	for(i=0;i<=21;i++){
+		map[0][i]=0;
+		map[i][0]=0;
+	}
+	map[0][1]=1;
+	for(i=1;i<=n+1;i++){
+		for(j=1;j<=m+1;j++){
+			if((xh+1==i && yh+1==j) ||	(xh+1+1==i && yh-2+1==j) ||	(xh-1+1==i && yh-2+1==j ) || (xh+2+1==i &&  yh-1+1==j)
+				|| (xh-2+1==i  &&yh-1+1==j) ||(xh+2+1==i &&  yh+1+1==j) || (xh-2+1==i  && yh+1+1==j) 
+				||  (xh+1+1==i && yh+2+1 ==j)||	(xh-1+1==i && yh+2+1 ==j)){
+				map[i][j]=0;
+			}else{
+				map[i][j]=map[i-1][j]+map[i][j-1];
+			}
+		}
+	}
+	printf("%.0f\n",map[n+1][m+1]);
+	
+	return 0;
+}
