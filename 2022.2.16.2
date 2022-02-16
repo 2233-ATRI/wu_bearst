@@ -1,0 +1,56 @@
+#include<iostream>
+using namespace std;
+int m,n,k,l,d;
+int x[1005],y[1005],c[1005],o[1005]; 
+int main()
+{ 
+ cin>>m>>n>>k>>l>>d;
+ for(int i=1;i<=d;i++)
+ {
+  int a,b,p,q;
+  cin>>a>>b>>p>>q;
+  if(a==p) x[min(b,q)]++;
+  else y[min(a,p)]++;
+ }
+ for(int i=1;i<=k;i++)
+ {
+  int mx=-1;
+  int w;
+  for(int j=1;j<m;j++)
+  {
+   if(y[j]>mx)
+   {
+    mx=y[j];
+    w=j;
+   }
+  }
+  y[w]=0;
+  c[w]++;
+ }
+ for(int i=1;i<=l;i++)
+ {
+  int mx=-1;
+  int w;
+  for(int j=1;j<n;j++)
+  {
+   if(x[j]>mx)
+   {
+    mx=x[j];
+    w=j;
+   }
+  }
+  x[w]=0;
+  o[w]++;
+ } 
+ for(int i=0;i<1005;i++)
+ {
+  if(c[i]) cout<<i<<" ";
+ }
+ cout<<endl;
+ for(int i=0;i<1005;i++)
+ {
+  if(o[i]) cout<<i<<" ";
+ }
+ cout<<endl;
+ return 0;
+}
